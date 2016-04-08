@@ -19,7 +19,7 @@ define cloudwatch::alarm (
     period              => $period,
     evaluation_periods  => $evaluation,
     threshold           => $threshold,
-    comparison_operator => $comparision,
+    comparison_operator => $comparison,
     region              => $region,
   }
 }
