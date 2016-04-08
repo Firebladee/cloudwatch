@@ -42,7 +42,22 @@
 #
 # Copyright 2016 Your name here, unless otherwise noted.
 #
-class cloudwatch {
+class cloudwatch (
+  $metric_data  = undef,
+  $metric_alarm = undef,
+  $set_alarm    = undef,
+  $metric_list  = undef,
+){
+  validate_hash($metric_data)
+  validate_hash($metric_alarm)
+#  validate ($set_alarm)
+#  validate ($metric_list)
 
+  if $metric_data != undef {
+    create_resources(cloudwatch::data, $metric_data)
+  }
 
+  if $metric_alarm != undef {
+    create_resources(cloudwatch::alarm, metric_alarm)
+  }
 }
