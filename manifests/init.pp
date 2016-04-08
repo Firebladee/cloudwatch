@@ -58,6 +58,6 @@ class cloudwatch (
 
   if $metric_alarm != undef {
     validate_hash($metric_alarm)
-    create_resources(cloudwatch::alarm, metric_alarm)
+    create_resources(cloudwatch::alarm, $metric_alarm)
   }
 }

@@ -13,14 +13,13 @@ define cloudwatch::alarm (
 ){
 
   cloudwatch_alarm { $name:
-    name        => $name,
-    metric      => $mertic,
-    namespace   => $namespace,
-    statistic   => $statistic,
-    period      => $period,
-    evaluation  => $evaluation_periods,
-    threshold   => $threshold,
-    comparision => $comparision_operator,
-    region      => $region,
+    metric              => $metric,
+    namespace           => $namespace,
+    statistic           => $statistic,
+    period              => $period,
+    evaluation_periods  => $evaluation,
+    threshold           => $threshold,
+    comparison_operator => $comparision,
+    region              => $region,
   }
 }
