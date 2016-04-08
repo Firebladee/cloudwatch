@@ -48,16 +48,16 @@ class cloudwatch (
   $set_alarm    = undef,
   $metric_list  = undef,
 ){
-  validate_hash($metric_data)
-  validate_hash($metric_alarm)
 #  validate ($set_alarm)
 #  validate ($metric_list)
 
   if $metric_data != undef {
+    validate_hash($metric_data)
     create_resources(cloudwatch::data, $metric_data)
   }
 
   if $metric_alarm != undef {
+    validate_hash($metric_alarm)
     create_resources(cloudwatch::alarm, metric_alarm)
   }
 }
