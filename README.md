@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Firebladee/cloudwatch.svg?branch=master)](https://travis-ci.org/Firebladee/cloudwatch)
+[![Coverage Status](https://coveralls.io/repos/github/Firebladee/cloudwatch/badge.svg?branch=master)](https://coveralls.io/github/Firebladee/cloudwatch?branch=master)
 # cloudwatch
 
 #### Table of Contents
