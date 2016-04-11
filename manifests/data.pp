@@ -21,15 +21,16 @@ define cloudwatch::data (
   $template_name    = undef,
   $template_create  = true,
   $template_dir     = undef,
-  $template_ensure  = true,
+  $template_ensure  = present,
   $template_content = "${module_name}/metric-data.erb",
   $template_owner   = $owner,
   $template_group   = $group,
   $template_mode    = $mode,
+  $template_cmd     = undef,
 
-  $cron_create = undef,
-  $cron_name   = undef,
-  $cron_ensure = true,
+  $cron_create = true,
+  $cron_name   = 'something',
+  $cron_ensure = present,
   $cron_cmd    = undef,
   $cron_user   = $owner,
   $cron_hour   = undef,
@@ -41,9 +42,7 @@ define cloudwatch::data (
   validate_bool(
     $folder_create,
     $template_create,
-    $template_ensure,
     $cron_create,
-    $cron_ensure,
   )
   validate_string(
     $template_name,
@@ -52,11 +51,14 @@ define cloudwatch::data (
     $template_root,
     $template_group,
     $template_mode,
+    $template_ensure,
+    $template_cmd,
     $cron_name,
     $cron_cmd,
     $cron_user,
     $cron_hour,
     $cron_minute,
+    $cron_ensure,
   )
   
   # folder creation
