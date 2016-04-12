@@ -1,3 +1,8 @@
+##############################################################################
+# This file is mananged by puppet.  Do NOT edit on the server, your changes  #
+# will be blown away on the next puppet run.                                 #
+##############################################################################
+
 <%= @template_cmd %>
 
 result=$?
@@ -10,6 +15,7 @@ fi
 
 aws cloudwatch put-metric-data \
   --namespace <%= @namespace %> \
+  --value $value \
   <% if !@metric_data.empty? %>--metric-data <%= @metric_data %> \<% end %>
   <% if !@metric_name.empty? %>--metric-name <%= @metric_name %> \<% end %>
   <% if !@timestamp.empty? %>--timestamp <%= @timestamp %> \<% end %>
@@ -18,4 +24,5 @@ aws cloudwatch put-metric-data \
   <% if !@dimensions.empty? %>--dimensions <%= @dimensions %> \<% end %>
   <% if !@statistic_values.empty? %>--statistic-values <%= @statistic_values %> \<% end %>
   <% if !@cli_input_json.empty? %>--cli-input-json <%= @cli_input_json %> \<% end %>
-  <% if !@generate_cli_skeleton.empty? %>--generate-cli-sekleton %> \<% end %>
+  <% if !@generate_cli_skeleton.empty? %>--generate-cli-sekleton <%= @generate_cli_skeleton %> \<% end %>
+  <% if !@region.empty? %> --region <%= @region %>
