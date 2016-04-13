@@ -10,6 +10,7 @@ define cloudwatch::data (
   $statistic_values      = undef,
   $cli_input_json        = undef,
   $generate_cli_skeleton = undef,
+  $region                = undef,
 
   $owner = root,
   $group = root,
