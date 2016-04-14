@@ -16,50 +16,56 @@
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
+This module is to allow the aws cloudwatch command to be used withing puppet.
 
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
+This module will create the cloudwatch metrics and alarms.
 
 ## Setup
 
-### What cloudwatch affects **OPTIONAL**
-
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
 ### Setup Requirements **OPTIONAL**
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
+This module will not set up the ablility to run aws commands on the target machine.
+You will need some other module to set that up.  Also this module will not setup any
+iam rules that may be needed for your metrics/alarms to work.
 
 ### Beginning with cloudwatch
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+The easists way to use this module is by hiera.
+
+```Puppet
+---
+classes:
+  - cloudwatch
+
+cloudwatch::metric_alarm:
+  test2:
+    metric: 'testing'
+    namespace: 'AWS/EC2'
+    statistic: 'Maximum'
+    period: '300'
+    evaluation: '2'
+    threshold: '1'
+    comparison: 'GreaterThanThreshold'
+    region: 'us-east-1'
+```
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+Above is an example of generating an alarm.  Below is an example for creating an metric.
+```Puppet
+cloudwatch::metric_data:
+  'test_metric':
+    region: 'us-east-1'
+    folder_name: '/tmp/metric'
+    template_name: 'testing'
+    template_dir: '/tmp/metric'
+    cron_name: 'testing'
+    cron_cmd: '/tmp/metric/testing >> /tmp/metric/log 2>&1'
+    cron_hour: '*'
+    cron_minute: '*/1'
+    template_mode: '0744'
+    template_cmd: 'nc -vz testing.com 80'
+```
 
 ## Reference
 
