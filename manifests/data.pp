@@ -1,16 +1,16 @@
 define cloudwatch::data (
   # Params for aws put-metric-data
   $namespace             = $name,
-  $metric_data           = undef,
-  $metric_name           = undef,
-  $timestamp             = undef,
-  $unit                  = undef,
-  $value                 = undef,
-  $dimensions            = undef,
-  $statistic_values      = undef,
-  $cli_input_json        = undef,
-  $generate_cli_skeleton = undef,
-  $region                = undef,
+  $metric_data           = '',
+  $metric_name           = '',
+  $timestamp             = '',
+  $unit                  = '',
+  $value                 = '',
+  $dimensions            = '',
+  $statistic_values      = '',
+  $cli_input_json        = '',
+  $generate_cli_skeleton = '',
+  $region                = '',
 
   $owner = root,
   $group = root,
@@ -23,7 +23,7 @@ define cloudwatch::data (
   $template_create  = true,
   $template_dir     = undef,
   $template_ensure  = present,
-  $template_content = "${module_name}/metric-data.erb",
+  $template_content = "${module_name}/metric.sh.erb",
   $template_owner   = $owner,
   $template_group   = $group,
   $template_mode    = $mode,
@@ -38,7 +38,6 @@ define cloudwatch::data (
   $cron_minute = undef,
 
 ){
-
   # validate
   validate_bool(
     $folder_create,
@@ -65,7 +64,7 @@ define cloudwatch::data (
   # folder creation
   if $folder_create {
     $dirtree = dirtree($folder_name)
-    endure_resource('file', $dirtree, { 'ensure' => 'directory'})
+    ensure_resource('file', $dirtree, { 'ensure' => 'directory'})
   }
 
   # cp template
